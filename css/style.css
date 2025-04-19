@@ -1,0 +1,147 @@
+
+/* Estilos de index.html */
+
+#index{
+    font-family: Arial, Helvetica;
+    margin: 0px;
+}
+header{
+    background-color: #92dcff;
+    border-bottom: 1px solid black;
+    padding: 10px;
+}
+section{
+    padding: 20px;
+    font-size: 1334230px
+}
+footer{            
+    background-color: #92dcff;
+    border-top: 1px solid black;
+    padding: 10px;
+    text-align: center;
+}
+span{
+    font-size: 18px;
+}
+nav ul{
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 30px;
+    color: #ffffff;
+    text-shadow: #2865a8 0px 1px 5px;
+    margin: 0%;
+    height: 50px;
+    padding-right: 20px;
+}
+
+section ul{
+    list-style: none; 
+    padding: 0;
+    margin: 20px; 
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 20px; 
+    row-gap: 50px;
+}
+
+section ul li{
+    background-color: rgb(249, 249, 249);
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: end;
+    border: 1px solid #ccc; 
+    padding: 8px;
+    width: calc(20% - 20px);
+    text-align: center; 
+    color: rgb(0, 135, 225);
+    font-weight: bold;
+    box-sizing: border-box; 
+    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1); 
+}
+section img{
+    margin-bottom: 15px;
+}
+input{
+    width: 200px;
+    height: 20px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+button{
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #7cafe5;
+    color: white;
+    text-shadow: #2865a8 0px 1px 5px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+#ucv{
+    font-size: 15px;
+}
+#oscary{
+    width: 180px;
+}
+.persona{
+    width: 150px;
+}
+.raya {
+    width: 2px;
+    background-color: white;
+    height: 70px;
+}
+
+
+
+/* Estilos de perfil.html */
+
+h1{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 40px;
+    color: #5c2391;
+    font-weight: bold;
+}
+
+#perfil{
+    background-color: #ffedff;
+    padding: 20px;
+    margin: 20px auto;
+    width: 78%;
+    border: 2px solid;
+    border-color: #5c2391;
+    box-shadow: 5px 4px 8px rgb(112, 88, 88);
+    overflow: hidden; 
+    font-size: 18px;
+}
+
+#presentacion{
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: italic;
+    
+}
+
+#foto{
+    margin-left: 1%;
+    border-top-left-radius: 20%;
+    width: 300px;
+    float: left;
+}
+
+td{
+    padding-right: 50px; 
+}
+
+a{	
+    font-weight: bold;
+    color: orange;
+    text-decoration: none;
+}
+
+a:visited{
+    color: red;
+}
