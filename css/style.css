@@ -96,6 +96,21 @@ button{
     height: 70px;
 }
 
+/* Animaciones */
+section ul li:hover {
+    transform: scale(1.1) rotate(5deg);
+    background-color: #99c5dd;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+section ul li:hover img {
+    transform: scale(1.1) rotate(5deg);
+    transition: transform 0.3s ease;
+}
+section ul li:hover span {
+    transform: scale(1.1) rotate(5deg);
+    transition: transform 0.3s ease;
+}
+
 
 
 /* Estilos de perfil.html */
