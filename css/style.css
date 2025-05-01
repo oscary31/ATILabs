@@ -5,6 +5,10 @@
 #index{
     font-family: Arial, Helvetica;
     margin: 0px;
+    display: grid;
+    width: 100%;
+    height: 100vh;
+    grid-template-rows: auto 1fr auto;
 }
 header{
     background-color: #92dcff;
@@ -41,30 +45,37 @@ section ul{
     list-style: none; 
     padding: 0;
     margin: 20px; 
-    display: flex; 
-    flex-wrap: wrap; 
+    display: grid;
     gap: 20px; 
-    row-gap: 50px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+    justify-items: center;
 }
 
 section ul li{
     background-color: rgb(249, 249, 249);
-    display: flex;
-    flex-direction: column; 
-    align-items: center; 
-    justify-content: end;
     border: 1px solid #ccc; 
-    padding: 8px;
-    width: calc(20% - 20px);
     text-align: center; 
     color: rgb(0, 135, 225);
     font-weight: bold;
     box-sizing: border-box; 
     box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1); 
+    display: grid;
+    grid-template-rows: auto;
+    justify-items: center; 
+    align-items: center;
+    padding: 10px;
+    width: auto; 
+    height: auto;
 }
-section img{
+
+section ul li img {
+    width: auto; 
+    height: auto;
+    max-width: 100%; 
+    max-height: 200px; 
     margin-bottom: 15px;
 }
+
 input{
     width: 200px;
     height: 20px;
@@ -72,6 +83,7 @@ input{
     border-radius: 5px;
     border: 1px solid #ccc;
 }
+
 button{
     padding: 5px 10px;
     border-radius: 5px;
@@ -85,9 +97,7 @@ button{
 #ucv{
     font-size: 15px;
 }
-#oscary{
-    width: 180px;
-}
+
 .persona{
     width: 150px;
 }
@@ -104,7 +114,7 @@ section ul li:hover {
     transition: transform 0.3s ease, background-color 0.3s ease;
 }
 section ul li:hover img {
-    transform: scale(1.1) rotate(5deg);
+    transform: scale(1.0) rotate(5deg);
     transition: transform 0.3s ease;
 }
 section ul li:hover span {
@@ -179,10 +189,26 @@ picture{
 
 
 
-/* Media queries for perfil.html */
+/* Media queries */
 
 /* 320px — 480px: Dispositivos móviles */
 @media screen and (max-width: 480px) {
+    nav ul{
+        font-size: 15px;
+        gap: 10px;
+    }
+    
+    input{
+        width: 60%;
+    }
+    button{
+        font-size: 10px;
+        margin-top: 2%;
+        text-align: center;
+    }
+    #ucv{
+        font-size: 10px;
+    }
     #contenedor {
         flex-direction: column;
         align-items: center;
@@ -217,7 +243,18 @@ picture{
 
 /* 481px — 768px: iPads, tablets */
 @media screen and (min-width: 481px) and (max-width: 769px){
-
+    nav ul{
+        font-size: 1rem;
+    }
+    nav ul li{
+        margin-right: 2%;
+    }
+    input{
+        width: 50%;
+    }
+    #ucv{
+        font-size: 10px;
+    }
     #perfil {
         width: 55%;
         height: auto;
@@ -250,7 +287,10 @@ picture{
 
 /* 769px — 1024px: pantallas pequeñas, ordenadores portátiles */
 @media screen and (min-width: 769px) and (max-width: 1025px) {
-    
+    nav ul{
+        font-size: 1.5rem;
+    }
+
     #perfil {
         width: 60%;
         font-size: 1.2rem;
@@ -282,7 +322,6 @@ picture{
 
 /* 1025px — 1200px: pantallas grandes, ordenadores de escritorio */
 @media screen and (min-width: 1025px) and (max-width: 1201px) {
-    
     #perfil {
         width: 70%;
         font-size: 1.2rem;
@@ -313,10 +352,8 @@ picture{
     }
 
 }
-
+/* Mayores a 1200px: pantallas más grandes */
 @media screen and (min-width: 1200px){
-    
-    
     #perfil {
         font-size: 1.3rem;
         padding: 20px;
@@ -345,3 +382,5 @@ picture{
         font-size: 2.5rem;
     }
 }
+
+
