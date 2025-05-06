@@ -1,0 +1,13 @@
+{	
+	"nombre":"Oscary Arocha",
+	"descripcion":"Soy estudiante de la escuela de computación de la Universidad Central de Venezuela. Estoy en 6to semestre de la carrera, estoy interesada en el área de bases de datos y desarrollo web. En mi tiempo libre me gusta jugar videojuegos y escuchar música.",
+	"color": "Rosa",
+	"libro": ["Yo antes de ti"],
+	"musica": ["Pop y kpop"],
+	"video_juego": ["Genshin Impact y Honkai: Star Rail"],
+	"lenguajes": ["C++", "C", "Python", "PHP", "JavaScript"],
+	"email":"floressoscary@gmail.com",
+	"ci": "30697617",
+	"genero":"femenino",
+	"fecha_nacimiento":"31/10/2002"
+}
