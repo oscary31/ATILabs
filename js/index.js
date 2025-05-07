@@ -1,109 +1,110 @@
+// Datos del JSON incrustados en el código
+const estudiantes = [
+    {
+        "ci": "30697617",
+        "imagen": "30697617/30697617Grande.jpg",
+        "nombre": "Oscary Arocha"
+    },
+    {
+        "ci": "19371273",
+        "imagen": "19371273/19371273.jpg",
+        "nombre": "Raquel Escalante Salazar"
+    },
+    {
+        "ci": "18829705",
+        "imagen": "18829705/18829705.jpg",
+        "nombre": "Leopoldo Enrique Izquierdo Carias"
+    },
+    {
+        "ci": "18819509",
+        "imagen": "18819509/18819509.jpg",
+        "nombre": "Darwin R. Guaimacuto N."
+    },
+    {
+        "ci": "14444733",
+        "imagen": "14444733/14444733.jpg",
+        "nombre": "María Paula Herrero"
+    },
+    {
+        "ci": "18443368",
+        "imagen": "18443368/18443368.jpg",
+        "nombre": "Diego Branco"
+    },
+    {
+        "ci": "19267152",
+        "imagen": "19267152/19267152.jpg",
+        "nombre": "Zulay Pineda"
+    },
+    {
+        "ci": "18487832",
+        "imagen": "18487832/18487832.jpg",
+        "nombre": "Hector Palomino"
+    },
+    {
+        "ci": "20117857",
+        "imagen": "20117857/20117857.PNG",
+        "nombre": "Angel Acosta"
+    },
+    {
+        "ci": "19558625",
+        "imagen": "19558625/19558625.jpg",
+        "nombre": "Jhonny Morales"
+    },
+    {
+        "ci": "19932730",
+        "imagen": "19932730/19932730.jpg",
+        "nombre": "Yesenia del Carmen Gil Casique"
+    },
+    {
+        "ci": "18009154",
+        "imagen": "18009154/18009154.JPG",
+        "nombre": "Jimmy E. Espino B."
+    },
+    {
+        "ci": "18110561",
+        "imagen": "18110561/18110561.jpg",
+        "nombre": "Karl Correa"
+    },
+    {
+        "ci": "19334139",
+        "imagen": "19334139/19334139.jpg",
+        "nombre": "Adrian Montes de Oca"
+    },
+    {
+        "ci": "13852255",
+        "imagen": "13852255/13852255.png",
+        "nombre": "Betty Torres"
+    },
+    {
+        "ci": "19499302",
+        "imagen": "19499302/19499302.jpg",
+        "nombre": "Katherine Colina"
+    },
+    {
+        "ci": "18002106",
+        "imagen": "18002106/18002106.jpg",
+        "nombre": "Abelardo José Moreno Carballeda"
+    },
+    {
+        "ci": "19379860",
+        "imagen": "19379860/19379860.jpg",
+        "nombre": "Gabriel Restrepo"
+    },
+    {
+        "ci": "18938455",
+        "imagen": "18938455/18938455.jpg",
+        "nombre": "Felix Garcia"
+    },
+    {
+        "ci": "18836874",
+        "imagen": "18836874/18836874.jpg",
+        "nombre": "Jorge Gavidia"
+    }
+];
+
 // Función para cargar los estudiantes y mostrarlos en la lista
 function cargarEstudiantes() {
     try {
-        // Datos del JSON incrustados en el código
-        const estudiantes = [
-            {
-                "ci": "30697617",
-                "imagen": "30697617/30697617Grande.jpg",
-                "nombre": "Oscary Arocha"
-            },
-            {
-                "ci": "19371273",
-                "imagen": "19371273/19371273.jpg",
-                "nombre": "Raquel Escalante Salazar"
-            },
-            {
-                "ci": "18829705",
-                "imagen": "18829705/18829705.jpg",
-                "nombre": "Leopoldo Enrique Izquierdo Carias"
-            },
-            {
-                "ci": "18819509",
-                "imagen": "18819509/18819509.jpg",
-                "nombre": "Darwin R. Guaimacuto N."
-            },
-            {
-                "ci": "14444733",
-                "imagen": "14444733/14444733.jpg",
-                "nombre": "María Paula Herrero"
-            },
-            {
-                "ci": "18443368",
-                "imagen": "18443368/18443368.jpg",
-                "nombre": "Diego Branco"
-            },
-            {
-                "ci": "19267152",
-                "imagen": "19267152/19267152.jpg",
-                "nombre": "Zulay Pineda"
-            },
-            {
-                "ci": "18487832",
-                "imagen": "18487832/18487832.jpg",
-                "nombre": "Hector Palomino"
-            },
-            {
-                "ci": "20117857",
-                "imagen": "20117857/20117857.PNG",
-                "nombre": "Angel Acosta"
-            },
-            {
-                "ci": "19558625",
-                "imagen": "19558625/19558625.jpg",
-                "nombre": "Jhonny Morales"
-            },
-            {
-                "ci": "19932730",
-                "imagen": "19932730/19932730.jpg",
-                "nombre": "Yesenia del Carmen Gil Casique"
-            },
-            {
-                "ci": "18009154",
-                "imagen": "18009154/18009154.JPG",
-                "nombre": "Jimmy E. Espino B."
-            },
-            {
-                "ci": "18110561",
-                "imagen": "18110561/18110561.jpg",
-                "nombre": "Karl Correa"
-            },
-            {
-                "ci": "19334139",
-                "imagen": "19334139/19334139.jpg",
-                "nombre": "Adrian Montes de Oca"
-            },
-            {
-                "ci": "13852255",
-                "imagen": "13852255/13852255.png",
-                "nombre": "Betty Torres"
-            },
-            {
-                "ci": "19499302",
-                "imagen": "19499302/19499302.jpg",
-                "nombre": "Katherine Colina"
-            },
-            {
-                "ci": "18002106",
-                "imagen": "18002106/18002106.jpg",
-                "nombre": "Abelardo José Moreno Carballeda"
-            },
-            {
-                "ci": "19379860",
-                "imagen": "19379860/19379860.jpg",
-                "nombre": "Gabriel Restrepo"
-            },
-            {
-                "ci": "18938455",
-                "imagen": "18938455/18938455.jpg",
-                "nombre": "Felix Garcia"
-            },
-            {
-                "ci": "18836874",
-                "imagen": "18836874/18836874.jpg",
-                "nombre": "Jorge Gavidia"
-            }
-        ];
 
         // Seleccionar el contenedor de la lista
         const section = document.querySelector('section');
@@ -117,7 +118,7 @@ function cargarEstudiantes() {
                 <img class="persona" src="${estudiante.imagen}" alt="${estudiante.nombre}">
                 <span>${estudiante.nombre}</span>
             `;
-            
+
             // Agregar un evento de clic para redirigir al perfil del estudiante
             li.onclick = () => {
                 window.location.href = `perfil.html?ci=${estudiante.ci}`;
@@ -495,13 +496,142 @@ function cargarPerfil() {
     }
 }
 
-// Llamar a las funciones al cargar la página
+
+
+
+
+
+// JSON de idiomas
+const idioma = {
+    "configES": {
+        "sitio": ["ATI", "[UCV]", "2025-1"],
+        "home": "Inicio",
+        "login": "Entrar",
+        "copyRight": "Copyright © 2025 Escuela de computación - ATI. Todos los derechos reservados",
+        "nombre": "Nombre",
+        "descripcion": "",
+        "color": "Mi color favorito es:",
+        "libro": "Mi libro favorito es:",
+        "musica": "Mi estilo de música preferida:",
+        "video_juego": "Vídeo juegos favoritos:",
+        "lenguajes": "Lenguajes aprendidos:",
+        "genero": "Género:",
+        "fecha_nacimiento": "Fecha de nacimiento:",
+        "email": "Si necesitan comunicarse conmigo me pueden escribir a [email]",
+        "buscar": "Buscar",
+        "saludo": "Hola"
+    },
+    "configEN": {
+        "sitio": ["ITA", "[UCV]", "2025-1"],
+        "home": "Home",
+        "login": "Login",
+        "copyRight": "Copyright © 2025 Computer school - ITA. All rights reserved",
+        "nombre": "Name",
+        "descripcion": "",
+        "color": "My favorite color is:",
+        "libro": "My favorite book is:",
+        "musica": "My favorite music style:",
+        "video_juego": "Favorite video games:",
+        "lenguajes": "Languages learned:",
+        "genero": "Gender:",
+        "fecha_nacimiento": "Date of birth:",
+        "email": "please send me a email to [email], if you need to contact me",
+        "buscar": "Search",
+        "saludo": "Hi"
+    },
+    "configPT": {
+        "sitio": ["ATI", "[UCV]", "2025-1"],
+        "home": "Início",
+        "login": "Sessão",
+        "copyRight": "Copyright © 2025 Escola de informática - ATI. Todos os direitos reservados",
+        "nombre": "Nome",
+        "descripcion": "",
+        "color": "Minha cor favorita é:",
+        "libro": "Meu livro favorito é:",
+        "musica": "Meu estilo de música favorita:",
+        "video_juego": "Jogos de vídeo favoritos:",
+        "lenguajes": "Linguagems aprendidas:",
+        "genero": "Gênero:",
+        "fecha_nacimiento": "Data de nascimento:",
+        "email": "Se precisar me contatar pode me escrever em [email]",
+        "buscar": "Procurar",
+        "saludo": "Olá"
+    }
+};
+
+// Función para obtener el idioma del URL
+function obtenerIdioma() {
+    const params = new URLSearchParams(window.location.search);
+    let lang = params.get('lang');
+
+    if (!lang) {
+        lang = 'configES'; // Idioma por defecto: Español
+        params.set('lang', lang);
+        window.history.replaceState({}, '', `${window.location.pathname}?${params.toString()}`);
+    }
+
+    return idioma[lang] || idioma['configES']; // Si no existe, usar Español
+}
+
+// Función para aplicar las traducciones en index.html
+function traducirIndex() {
+    const config = obtenerIdioma();
+
+    // Actualizar el título del sitio
+    document.title = `${config.sitio[0]} ${config.sitio[1]} ${config.sitio[2]}`;
+
+    // Actualizar titulo del nav
+    const sitio = document.getElementById('ati');
+    sitio.innerHTML = `${config.sitio[0]} <span id="ucv">${config.sitio[1]}</span> ${config.sitio[2]}`;
+
+    // Actualizar el saludo
+    const saludo = document.querySelector('nav ul li:nth-child(3)');
+    if (saludo) saludo.textContent = `${config.saludo}, Oscary Arocha`;
+
+    // Actualizar el placeholder del input de búsqueda
+    const inputBuscar = document.querySelector('input[type="text"]');
+    if (inputBuscar) inputBuscar.placeholder = `${config.nombre}...`;
+
+    // Actualizar el texto del botón de búsqueda
+    const botonBuscar = document.querySelector('button[type="submit"]');
+    if (botonBuscar) botonBuscar.textContent = config.buscar;
+
+    // Actualizar el texto del footer
+    const footer = document.querySelector('footer p');
+    if (footer) footer.textContent = config.copyRight;
+}
+
+// Función para aplicar las traducciones en perfil.html
+function traducirPerfil() {
+    const config = obtenerIdioma();
+
+
+    // Actualizar los textos de los detalles del perfil
+    const detalles = document.getElementById('detalles');
+    if (detalles) {
+        detalles.querySelectorAll('tr').forEach((fila, index) => {
+            const keys = ["color", "libro", "musica", "video_juego", "lenguajes", "genero", "fecha_nacimiento"];
+            if (keys[index]) fila.querySelector('td:first-child').textContent = config[keys[index]];
+        });
+    }
+
+    // Actualizar el texto del contacto
+    const contacto = document.getElementById('contacto');
+    if (contacto) {
+        const email = contacto.querySelector('a')?.getAttribute('href')?.replace('mailto:', '');
+        if (email) {
+            contacto.innerHTML = config.email.replace('[email]', `<a href="mailto:${email}">${email}</a>`);
+        }
+    }
+}
+
+// Llamar a las funciones de traducción al cargar la página
 document.addEventListener('DOMContentLoaded', () => {
     if (document.querySelector('section')) {
         cargarEstudiantes();
+        traducirIndex();
     } else if (document.getElementById('perfil')) {
         cargarPerfil();
+        traducirPerfil();
     }
 });
-
-
