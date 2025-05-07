@@ -187,6 +187,13 @@ picture{
     padding: 0px;
 }
 
+.img_persona{
+    width: 25%;
+    margin: 0;
+    border-top-left-radius: 20%;
+    border: 1px solid #5c2391;
+}
+
 
 
 /* Media queries */
@@ -225,7 +232,7 @@ picture{
         padding: 2%;
         align-content: flex-start;
     }
-    picture {
+    picture, .img_persona {
         width: 60%;
         height: auto;
         margin-bottom: 1%;
@@ -269,7 +276,7 @@ picture{
         padding: 2%;
         align-content: flex-start;
     }
-    picture {
+    picture, .img_persona {
         width: 45%;
         height: auto;
         margin-top: 2%;
@@ -304,7 +311,7 @@ picture{
         padding: 2%;
         align-content: flex-start;
     }
-    picture {
+    picture, .img_persona {
         width: 40%;
         height: auto;
         margin-top: 2%;
@@ -335,7 +342,7 @@ picture{
         padding: 2%;
         align-content: flex-start;
     }
-    picture {
+    picture, .img_persona {
         width: 40%;
         height: auto;
         margin-left: 1%;
@@ -364,10 +371,10 @@ picture{
     }
     td {
         width: 50%;
-        padding: 2%;
+        padding: 1%;
         align-content: flex-start;
     }
-    picture {
+    picture, .img_persona {
         width: 20%;
         height: auto;
         margin-left: 1%;
