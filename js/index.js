@@ -472,8 +472,9 @@ function cargarPerfil() {
             { titulo: "Estilo de música preferida", valor: perfil.musica.join(", ") },
             { titulo: "Videojuegos favoritos", valor: perfil.video_juego.join(", ") },
             { titulo: "Lenguajes aprendidos", valor: perfil.lenguajes.join(", ") },
-            { titulo: "Fecha de nacimiento", valor: perfil.fecha_nacimiento },
-            { titulo: "Género", valor: perfil.genero }
+            { titulo: "Género", valor: perfil.genero },
+            { titulo: "Fecha de nacimiento", valor: perfil.fecha_nacimiento }
+            
         ];
 
         detallesData.forEach(detalle => {
@@ -497,10 +498,7 @@ function cargarPerfil() {
 }
 
 
-
-
-
-
+// Datos de estudiantes
 // JSON de idiomas
 const idioma = {
     "configES": {
@@ -519,7 +517,8 @@ const idioma = {
         "fecha_nacimiento": "Fecha de nacimiento:",
         "email": "Si necesitan comunicarse conmigo me pueden escribir a [email]",
         "buscar": "Buscar",
-        "saludo": "Hola"
+        "saludo": "Hola",
+        "mensaje": "No se encontró ningún estudiante con el nombre: [nombre]"
     },
     "configEN": {
         "sitio": ["ITA", "[UCV]", "2025-1"],
@@ -537,7 +536,8 @@ const idioma = {
         "fecha_nacimiento": "Date of birth:",
         "email": "please send me a email to [email], if you need to contact me",
         "buscar": "Search",
-        "saludo": "Hi"
+        "saludo": "Hi",
+        "mensaje": "No student found with the name: [nombre]"
     },
     "configPT": {
         "sitio": ["ATI", "[UCV]", "2025-1"],
@@ -555,7 +555,8 @@ const idioma = {
         "fecha_nacimiento": "Data de nascimento:",
         "email": "Se precisar me contatar pode me escrever em [email]",
         "buscar": "Procurar",
-        "saludo": "Olá"
+        "saludo": "Olá",
+        "mensaje": "Nenhum aluno encontrado com o nome: [nombre]"
     }
 };
 
@@ -563,14 +564,19 @@ const idioma = {
 function obtenerIdioma() {
     const params = new URLSearchParams(window.location.search);
     let lang = params.get('lang');
-
-    if (!lang) {
-        lang = 'configES'; // Idioma por defecto: Español
+    if (!lang || !['ES', 'EN', 'PT'].includes(lang)) {
+        lang = 'ES'; // Idioma por defecto: Español
         params.set('lang', lang);
         window.history.replaceState({}, '', `${window.location.pathname}?${params.toString()}`);
     }
 
-    return idioma[lang] || idioma['configES']; // Si no existe, usar Español
+    const langConfig = {
+        ES: 'configES',
+        EN: 'configEN',
+        PT: 'configPT'
+    };
+
+    return idioma[langConfig[lang]];
 }
 
 // Función para aplicar las traducciones en index.html
@@ -585,7 +591,7 @@ function traducirIndex() {
     sitio.innerHTML = `${config.sitio[0]} <span id="ucv">${config.sitio[1]}</span> ${config.sitio[2]}`;
 
     // Actualizar el saludo
-    const saludo = document.querySelector('nav ul li:nth-child(3)');
+    const saludo = document.getElementById('saludo');
     if (saludo) saludo.textContent = `${config.saludo}, Oscary Arocha`;
 
     // Actualizar el placeholder del input de búsqueda
@@ -604,7 +610,6 @@ function traducirIndex() {
 // Función para aplicar las traducciones en perfil.html
 function traducirPerfil() {
     const config = obtenerIdioma();
-
 
     // Actualizar los textos de los detalles del perfil
     const detalles = document.getElementById('detalles');
@@ -625,13 +630,71 @@ function traducirPerfil() {
     }
 }
 
-// Llamar a las funciones de traducción al cargar la página
+
+
+// Función para filtrar la lista de estudiantes
+function filtrarEstudiantes() {
+    const input = document.getElementById('buscar');
+    const filter = input.value.toLowerCase();
+    const ul = document.querySelector('section ul');
+    ul.innerHTML = ''; // Limpiar la lista antes de mostrar los resultados filtrados
+    let found = false;
+
+    estudiantes.forEach(estudiante => {
+        if (estudiante.nombre.toLowerCase().includes(filter)) {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <img class="persona" src="${estudiante.imagen}" alt="${estudiante.nombre}">
+                <span>${estudiante.nombre}</span>
+            `;
+            li.onclick = () => {
+                window.location.href = `perfil.html?ci=${estudiante.ci}`;
+            };
+            ul.appendChild(li);
+            found = true;
+        }
+            
+        
+    });
+
+    // Crear contenedor para el mensaje si no existe
+    let mensaje = document.getElementById('no-encontrado');
+    const section = document.querySelector('section');
+    if (!mensaje) {
+        mensaje = document.createElement('p');
+        mensaje.id = 'no-encontrado';
+        section.appendChild(mensaje);
+    }
+
+    // Mostrar mensaje si no se encuentra ningún estudiante
+    const config = obtenerIdioma(); // Obtener configuraciones del idioma actual
+    if (found === false && filter) {
+        mensaje.textContent = config.mensaje.replace('[nombre]', `"${filter}"`);
+        mensaje.style.display = 'block';
+        mensaje.style.fontFamily = 'Arial, Helvetica, sans-serif';
+    } else {
+        mensaje.style.display = 'none';
+    }
+}
+
+
+// Llamar a las funciones de traducción al cargar la página y agregar evento al campo de búsqueda
 document.addEventListener('DOMContentLoaded', () => {
     if (document.querySelector('section')) {
         cargarEstudiantes();
         traducirIndex();
+        const inputBuscar = document.getElementById('buscar');
+        if (inputBuscar) {
+            inputBuscar.addEventListener('input', filtrarEstudiantes);
+        }
     } else if (document.getElementById('perfil')) {
         cargarPerfil();
         traducirPerfil();
     }
 });
+
+
+
+
+
+
