@@ -202,7 +202,15 @@ picture{
     border: 1px solid #5c2391;
 }
 
-
+/* Optimización para evitar layout shift en imágenes de personas */
+section ul li img,
+.img_persona,
+.persona {
+    width: 150px;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+}
 
 /* Media queries */
 

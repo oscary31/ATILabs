@@ -115,7 +115,7 @@ function cargarEstudiantes() {
         estudiantes.forEach(estudiante => {
             const li = document.createElement('li');
             li.innerHTML = `
-                <img class="persona" src="${estudiante.imagen}" alt="${estudiante.nombre}" loading="lazy">
+                <img class="persona" src="${estudiante.imagen}" alt="${estudiante.nombre}" fetchpriority="high">
                 <span>${estudiante.nombre}</span>
             `;
 
@@ -644,7 +644,7 @@ function filtrarEstudiantes() {
         if (estudiante.nombre.toLowerCase().includes(filter)) {
             const li = document.createElement('li');
             li.innerHTML = `
-                <img class="persona" src="${estudiante.imagen}" alt="${estudiante.nombre}" loading="lazy">
+                <img class="persona" src="${estudiante.imagen}" alt="${estudiante.nombre}">
                 <span>${estudiante.nombre}</span>
             `;
             li.onclick = () => {
