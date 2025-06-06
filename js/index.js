@@ -42,7 +42,7 @@ const estudiantes = [
     },
     {
         "ci": "20117857",
-        "imagen": "20117857/20117857.PNG",
+        "imagen": "20117857/20117857.png",
         "nombre": "Angel Acosta"
     },
     {
@@ -57,7 +57,7 @@ const estudiantes = [
     },
     {
         "ci": "18009154",
-        "imagen": "18009154/18009154.JPG",
+        "imagen": "18009154/18009154.jpg",
         "nombre": "Jimmy E. Espino B."
     },
     {
