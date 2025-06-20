@@ -1,3 +1,10 @@
+// Redirección forzada a /ATI/index.py si la ruta es diferente
+if (!window.location.pathname.endsWith('/ATI/index.py')) {
+    const params = window.location.search;
+    const hash = window.location.hash;
+    window.location.replace('/ATI/index.py' + params + hash);
+}
+
 // Variable global para almacenar los estudiantes cargados
 let estudiantesGlobal = [];
 
@@ -5,38 +12,27 @@ let estudiantesGlobal = [];
 async function cargarEstudiantes() {
     try {
         // Obtener los datos de estudiantes desde el JSON externo
-        const response = await fetch('/datos/index.json');
+        const response = await fetch('/ATI/datos/index.json');
         const estudiantes = await response.json();
         estudiantesGlobal = estudiantes; // Guardar globalmente para el filtro
 
         // Seleccionar el contenedor de la lista
-        const section = document.querySelector('section');
+        const section = document.getElementById('vista-lista');
         section.innerHTML = ''; // Limpiar el contenido previo
         const ul = document.createElement('ul');
 
         // Generar dinámicamente los elementos de la lista
         estudiantes.forEach(estudiante => {
             const li = document.createElement('li');
-            if(estudiante.ci === "20117857") {
-                li.innerHTML = `
-                <img class="persona" src="/20117857/20117857.png" alt="${estudiante.nombre}" fetchpriority="high">
+            li.innerHTML = `
+                <img class="persona" src="/ATI/${estudiante.imagen}" alt="${estudiante.nombre}" fetchpriority="high">
                 <span>${estudiante.nombre}</span>
-                `;
-            }else if(estudiante.ci === "18009154") {
-                li.innerHTML = `
-                <img class="persona" src="/18009154/18009154.jpg" alt="${estudiante.nombre}" fetchpriority="high">
-                <span>${estudiante.nombre}</span>
-                `;
-            }else{
-                li.innerHTML = `
-                <img class="persona" src="/${estudiante.imagen}" alt="${estudiante.nombre}" fetchpriority="high">
-                <span>${estudiante.nombre}</span>
-                `;
-            }
+            `;
             
             // Agregar un evento de clic para redirigir al perfil del estudiante
-            li.onclick = () => {
-                window.location.href = `perfil.html?ci=${estudiante.ci}`;
+            li.onclick = (e) => {
+                e.preventDefault();
+                mostrarPerfil(estudiante.ci);
             };
             ul.appendChild(li);
         });
@@ -48,46 +44,48 @@ async function cargarEstudiantes() {
 }
 
 // Función para cargar y mostrar el perfil en perfil.html
-async function cargarPerfil() {
+async function cargarPerfil(ci) {
     try {
-        // Obtener el parámetro 'ci' del URL
-        const params = new URLSearchParams(window.location.search);
-        const ci = params.get('ci');
         if (!ci) {
-            throw new Error('No se proporcionó un CI en el URL');
+            // Intentar obtener el parámetro de la URL si no se pasa
+            const params = new URLSearchParams(window.location.search);
+            ci = params.get('ci');
+        }
+        if (!ci) {
+            throw new Error('No se proporcionó un CI');
         }
         // Obtener los datos del perfil desde el JSON externo
-        const response = await fetch(`/${ci}/perfil.json`);
+        const response = await fetch(`/ATI/${ci}/perfil.json`);
         const perfil = await response.json();
-
-        // Agregar la imagen del perfil en el contenedor
         const contenedor = document.getElementById('contenedor');
-        const imagenPerfil = document.createElement('img');
-        imagenPerfil.className = 'img_persona';
+        // Eliminar imagen previa si existe
+        const imgPrev = contenedor.querySelector('img.img_persona, picture');
+        if (imgPrev) imgPrev.remove();
+        let imagenPerfil;
         if(ci === "30697617") {
             const picture = document.createElement('picture');
             const imgGrande = document.createElement('source');
             imgGrande.media = '(min-width: 769px)';
-            imgGrande.srcset = '/30697617/30697617Grande.jpg';
+            imgGrande.srcset = '/ATI/30697617/30697617Grande.jpg';
             imgGrande.type = 'image/jpeg';
             const imgPequena = document.createElement('source');
             imgPequena.media = '(max-width: 768px)';
-            imgPequena.srcset = '/30697617/30697617Pequena.jpg';
+            imgPequena.srcset = '/ATI/30697617/30697617Pequena.jpg';
             imgPequena.type = 'image/jpeg';
             const img = document.createElement('img');
             img.id = 'foto';
-            img.src = '/30697617/30697617Grande.jpg';
+            img.className = 'img_persona';
+            img.src = '/ATI/30697617/30697617Grande.jpg';
             img.alt = 'Oscary Arocha';
             picture.appendChild(imgGrande);
             picture.appendChild(imgPequena);
             picture.appendChild(img);
             contenedor.insertBefore(picture, document.getElementById('perfil'));
         }else{
-            imagenPerfil.src = `/${ci}/${ci}.jpg`;
-            imagenPerfil.onerror = () => {
-                imagenPerfil.src = `/${ci}/${ci}.png`;
-            };
-            imagenPerfil.alt = `Imagen de ${perfil.nombre}`; 
+            imagenPerfil = document.createElement('img');
+            imagenPerfil.className = 'img_persona';
+            imagenPerfil.src = `/ATI/${ci}/${ci}.jpg`;
+            imagenPerfil.alt = `Imagen de ${perfil.nombre}`;
             contenedor.insertBefore(imagenPerfil, document.getElementById('perfil'));
         }
         // Actualizar el contenido del HTML con los datos del perfil
@@ -119,28 +117,40 @@ async function cargarPerfil() {
             Si necesitan comunicarse conmigo me pueden escribir a: 
             <a href="mailto:${perfil.email}" title="Enviar correo a ${perfil.nombre}">${perfil.email}</a>
         `;
+        
+        await traducirTodo();
     } catch (error) {
         console.error('Error al cargar el perfil:', error);
         document.getElementById('perfil').innerHTML = '<p>Error al cargar el perfil.</p>';
     }
+
+
 }
 
 // Función para obtener el idioma del URL y cargar el JSON externo
 async function obtenerIdioma() {
     const params = new URLSearchParams(window.location.search);
     let lang = params.get('lang');
+    
+    // Si no hay parámetro lang o no es válido, usar ES por defecto
     if (!lang || !['ES', 'EN', 'PT'].includes(lang)) {
-        lang = 'ES'; // Idioma por defecto: Español
-        params.set('lang', lang);
-        window.history.replaceState({}, '', `${window.location.pathname}?${params.toString()}`);
+        lang = 'ES';
+        // Solo actualizar la URL si realmente necesitamos cambiar el idioma
+        if (params.get('lang') !== lang) {
+            params.set('lang', lang);
+            const newUrl = window.location.pathname + '?' + params.toString();
+            window.history.replaceState({}, '', newUrl);
+        }
     }
+    
     const langConfig = {
         ES: 'configES.json',
         EN: 'configEN.json',
         PT: 'configPT.json'
     };
+    
     try {
-        const response = await fetch(`/conf/${langConfig[lang]}`);
+        const response = await fetch(`/ATI/conf/${langConfig[lang]}`);
         return await response.json();
     } catch (error) {
         console.error('Error al cargar el archivo de idioma:', error);
@@ -148,32 +158,22 @@ async function obtenerIdioma() {
     }
 }
 
-// Función para aplicar las traducciones en index.html
-async function traducirIndex() {
+// Función para aplicar las traducciones en index.html y perfil.html
+async function traducirTodo() {
     const config = await obtenerIdioma();
-    // Actualizar el título del sitio
+    // Traducción general (index)
     document.title = `${config.sitio?.[0] || ''} ${config.sitio?.[1] || ''} ${config.sitio?.[2] || ''}`;
-    // Actualizar titulo del nav
     const sitio = document.getElementById('ati');
     if (sitio && config.sitio) sitio.innerHTML = `${config.sitio[0]} <span id="ucv">${config.sitio[1]}</span> ${config.sitio[2]}`;
-    // Actualizar el saludo
     const saludo = document.getElementById('saludo');
     if (saludo && config.saludo) saludo.textContent = `${config.saludo}, Oscary Arocha`;
-    // Actualizar el placeholder del input de búsqueda
     const inputBuscar = document.querySelector('input[type="text"]');
     if (inputBuscar && config.nombre) inputBuscar.placeholder = `${config.nombre}...`;
-    // Actualizar el texto del botón de búsqueda
     const botonBuscar = document.querySelector('button[type="submit"]');
     if (botonBuscar && config.buscar) botonBuscar.textContent = config.buscar;
-    // Actualizar el texto del footer
     const footer = document.querySelector('footer p');
     if (footer && config.copyRight) footer.textContent = config.copyRight;
-}
-
-// Función para aplicar las traducciones en perfil.html
-async function traducirPerfil() {
-    const config = await obtenerIdioma();
-    // Actualizar los textos de los detalles del perfil
+    // Traducción de perfil
     const detalles = document.getElementById('detalles');
     if (detalles && config) {
         detalles.querySelectorAll('tr').forEach((fila, index) => {
@@ -181,7 +181,6 @@ async function traducirPerfil() {
             if (keys[index] && config[keys[index]]) fila.querySelector('td:first-child').textContent = config[keys[index]];
         });
     }
-    // Actualizar el texto del contacto
     const contacto = document.getElementById('contacto');
     if (contacto && config.email) {
         const email = contacto.querySelector('a')?.getAttribute('href')?.replace('mailto:', '');
@@ -191,11 +190,37 @@ async function traducirPerfil() {
     }
 }
 
+// Función para mostrar la vista de lista y ocultar la de perfil
+function mostrarLista(lang) {
+    document.getElementById('vista-lista').style.display = '';
+    document.getElementById('vista-perfil').style.display = 'none';
+    document.querySelector('header').style.display = '';
+    document.querySelector('footer').style.display = '';
+    
+    const params = new URLSearchParams(window.location.search);
+    params.delete('ci');
+    if (lang) params.set('lang', lang);
+    
+    history.pushState({vista: 'lista'}, '', '?' + params.toString());
+}
+
+async function mostrarPerfil(ci) {
+    document.getElementById('vista-lista').style.display = 'none';
+    document.getElementById('vista-perfil').style.display = '';
+    document.querySelector('header').style.display = 'none';
+    document.querySelector('footer').style.display = 'none';
+    
+    const params = new URLSearchParams(window.location.search);
+    params.set('ci', ci);
+    
+    await cargarPerfil(ci);
+    history.pushState({vista: 'perfil', ci: ci}, '', '?' + params.toString());
+}
 // Función para filtrar la lista de estudiantes
 function filtrarEstudiantes() {
     const input = document.getElementById('buscar');
     const filter = input.value.toLowerCase();
-    const section = document.querySelector('section');
+    const section = document.getElementById('vista-lista');
     const ul = section.querySelector('ul');
     ul.innerHTML = ''; // Limpiar la lista antes de mostrar los resultados filtrados
     let found = false;
@@ -204,11 +229,12 @@ function filtrarEstudiantes() {
         if (estudiante.nombre.toLowerCase().includes(filter)) {
             const li = document.createElement('li');
             li.innerHTML = `
-                <img class="persona" src="/${estudiante.imagen}" alt="${estudiante.nombre}">
+                <img class="persona" src="/ATI/${estudiante.imagen}" alt="${estudiante.nombre}">
                 <span>${estudiante.nombre}</span>
             `;
-            li.onclick = () => {
-                window.location.href = `perfil.html?ci=${estudiante.ci}`;
+            li.onclick = (e) => {
+                e.preventDefault();
+                mostrarPerfil(estudiante.ci);
             };
             ul.appendChild(li);
             found = true;
@@ -237,16 +263,60 @@ function filtrarEstudiantes() {
 
 // Llamar a las funciones de traducción al cargar la página y agregar evento al campo de búsqueda
 document.addEventListener('DOMContentLoaded', async () => {
-    if (document.querySelector('section')) {
+    // Primero aplicar el idioma
+    await traducirTodo();
+    
+    // Luego cargar la vista adecuada
+    const params = new URLSearchParams(window.location.search);
+    const ci = params.get('ci');
+    
+    if (ci) {
+        await mostrarPerfil(ci);
+    } else {
+        mostrarLista();
         await cargarEstudiantes();
-        await traducirIndex();
-        const inputBuscar = document.getElementById('buscar');
-        if (inputBuscar) {
-            inputBuscar.addEventListener('input', filtrarEstudiantes);
-        }
-    } else if (document.getElementById('perfil')) {
-        await cargarPerfil();
-        await traducirPerfil();
+    }
+    
+    // Configurar el buscador
+    const inputBuscar = document.getElementById('buscar');
+    if (inputBuscar) {
+        inputBuscar.addEventListener('input', filtrarEstudiantes);
+    }
+    
+    const formBuscar = document.getElementById('form-buscar');
+    if (formBuscar) {
+        formBuscar.addEventListener('submit', (e) => {
+            e.preventDefault();
+            filtrarEstudiantes();
+        });
+    }
+});
+
+// Manejo de cambios en la URL (idioma o perfil)
+window.addEventListener('popstate', async () => {
+    const params = new URLSearchParams(window.location.search);
+    const ci = params.get('ci');
+    
+    if (ci) {
+        await mostrarPerfil(ci);
+    } else {
+        mostrarLista();
+    }
+    
+    await traducirTodo();
+});
+
+
+// SPA: Manejo de navegación y eventos
+window.addEventListener('popstate', (event) => {
+    if (event.state && event.state.vista === 'perfil') {
+        document.querySelector('header').style.display = 'none';
+        document.querySelector('footer').style.display = 'none';
+        mostrarPerfil(event.state.ci);
+    } else {
+        document.querySelector('header').style.display = '';
+        document.querySelector('footer').style.display = '';
+        mostrarLista();
     }
 });
 
